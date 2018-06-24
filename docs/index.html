@@ -6,94 +6,94 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Coon Run</title>
     <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet"> 
-    <link rel="stylesheet" type="text/css" href="./css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
 <body>
 <canvas id="cnvs" width="1280px" height="720px"></canvas>
-<audio id="jump"><source src="docs/snd/Jump.wav"></audio>
-<audio id="duckSnd"><source src="docs/snd/Bukken.wav"></audio>
-<audio id="correctSnd"><source src="docs/snd/Correct_SW.wav"></audio>
-<audio id="coinSnd"><source src="docs/snd/coin_pickup.wav"></audio>
-<audio id="Dag_switch"><source src="docs/snd/Dag_switch.wav"></audio>
-<audio id="deathSnd"><source src="docs/snd/death1.wav"></audio>
-<audio id="incorrectSnd"><source src="docs/snd/False_SW.wav"></audio>
-<audio id="hitSnd"><source src="docs/snd/hit.wav"></audio>
-<audio id="lifeSnd"><source src="docs/snd/Life_pickup.wav"></audio>
-<audio id="Nacht_switch"><source src="docs/snd/Nacht_switch.wav"></audio>
-<audio id="spawnSnd"><source src="docs/snd/Respawn.wav"></audio>
-<audio id="dag"><source src="docs/snd/Strand 1.mp3"></audio>
-<audio id="nacht"><source src="docs/snd/Nacht.mp3"></audio>
-<audio id="kawaiisong"><source src="docs/snd/kawaiisong.mp3"></audio>
-<audio id="gameoverSong"><source src="docs/snd/Gameover_music.wav"></audio>
+<audio id="jump"><source src="snd/Jump.wav"></audio>
+<audio id="duckSnd"><source src="snd/Bukken.wav"></audio>
+<audio id="correctSnd"><source src="snd/Correct_SW.wav"></audio>
+<audio id="coinSnd"><source src="snd/coin_pickup.wav"></audio>
+<audio id="Dag_switch"><source src="snd/Dag_switch.wav"></audio>
+<audio id="deathSnd"><source src="snd/death1.wav"></audio>
+<audio id="incorrectSnd"><source src="snd/False_SW.wav"></audio>
+<audio id="hitSnd"><source src="snd/hit.wav"></audio>
+<audio id="lifeSnd"><source src="snd/Life_pickup.wav"></audio>
+<audio id="Nacht_switch"><source src="snd/Nacht_switch.wav"></audio>
+<audio id="spawnSnd"><source src="snd/Respawn.wav"></audio>
+<audio id="dag"><source src="snd/Strand 1.mp3"></audio>
+<audio id="nacht"><source src="snd/Nacht.mp3"></audio>
+<audio id="kawaiisong"><source src="snd/kawaiisong.mp3"></audio>
+<audio id="gameoverSong"><source src="snd/Gameover_music.wav"></audio>
 
-<img src="docs/img/bin1.png" id="bin1" style="display:none"/>
-<img src="docs/img/bin2.png" id="bin2" style="display:none"/>
-<img src="docs/img/bin3.png" id="bin3" style="display:none"/>
-<img src="docs/img/kawaiibin.png" id="kawaiibin1" style="display:none"/>
-<img src="docs/img/kawaiibin2.png" id="kawaiibin2" style="display:none"/>
-<img src="docs/img/kawaiibin3.png" id="kawaiibin3" style="display:none"/>
-<img src="docs/img/wolk.png" id="wolk" style="display: none"/>
-<img src="docs/img/raccoon.png" id="raccoon" style="display: none"/>
-<img src="docs/img/raccoonwalk.png" id="raccoonwalk" style="display: none"/>
-<img src="docs/img/raccoonwalk2.png" id="raccoonwalk2" style="display: none"/>
-<img src="docs/img/raccoonjump.png" id="raccoonjump" style="display: none"/>
-<img src="docs/img/raccoonduck.png" id="raccoonduck" style="display: none"/>
-<img src="docs/img/life.png" id="life" style="display: none"/>
-<img src="docs/img/sun.png" id="sun" style="display: none"/>
-<img src="docs/img/book.png" id="book" style="display: none"/>
-<img src="docs/img/peel.png" id="peel" style="display: none"/>
+<img src="img/bin1.png" id="bin1" style="display:none"/>
+<img src="img/bin2.png" id="bin2" style="display:none"/>
+<img src="img/bin3.png" id="bin3" style="display:none"/>
+<img src="img/kawaiibin.png" id="kawaiibin1" style="display:none"/>
+<img src="img/kawaiibin2.png" id="kawaiibin2" style="display:none"/>
+<img src="img/kawaiibin3.png" id="kawaiibin3" style="display:none"/>
+<img src="img/wolk.png" id="wolk" style="display: none"/>
+<img src="img/raccoon.png" id="raccoon" style="display: none"/>
+<img src="img/raccoonwalk.png" id="raccoonwalk" style="display: none"/>
+<img src="img/raccoonwalk2.png" id="raccoonwalk2" style="display: none"/>
+<img src="img/raccoonjump.png" id="raccoonjump" style="display: none"/>
+<img src="img/raccoonduck.png" id="raccoonduck" style="display: none"/>
+<img src="img/life.png" id="life" style="display: none"/>
+<img src="img/sun.png" id="sun" style="display: none"/>
+<img src="img/book.png" id="book" style="display: none"/>
+<img src="img/peel.png" id="peel" style="display: none"/>
 
-<img src="docs/img/lvl0/bench.png" id="bench" style="display: none"/>
-<img src="docs/img/lvl0/lantern.png" id="lantern" style="display: none"/>
-<img src="docs/img/lvl0/level2.jpg" id="level0" style="display: none"/>
-<img src="docs/img/lvl0/moon.png" id="moon" style="display: none"/>
-<img src="docs/img/lvl0/ufo.png" id="ufo" style="display: none"/>
+<img src="img/lvl0/bench.png" id="bench" style="display: none"/>
+<img src="img/lvl0/lantern.png" id="lantern" style="display: none"/>
+<img src="img/lvl0/level2.jpg" id="level0" style="display: none"/>
+<img src="img/lvl0/moon.png" id="moon" style="display: none"/>
+<img src="img/lvl0/ufo.png" id="ufo" style="display: none"/>
 
-<img src="docs/img/lvl1/carrots.png" id="carrots" style="display: none"/>
-<img src="docs/img/lvl1/corn.png" id="corn" style="display: none"/>
-<img src="docs/img/lvl1/level1.jpg" id="level1" style="display: none"/>
-<img src="docs/img/lvl1/flower.png" id="flower" style="display: none"/>
+<img src="img/lvl1/carrots.png" id="carrots" style="display: none"/>
+<img src="img/lvl1/corn.png" id="corn" style="display: none"/>
+<img src="img/lvl1/level1.jpg" id="level1" style="display: none"/>
+<img src="img/lvl1/flower.png" id="flower" style="display: none"/>
 
-<img src="docs/img/lvl2/bookshelf.png" id="bookshelf" style="display: none"/>
-<img src="docs/img/lvl2/chouch.png" id="chouch" style="display: none"/>
-<img src="docs/img/lvl2/level2.jpg" id="level2" style="display: none"/>
+<img src="img/lvl2/bookshelf.png" id="bookshelf" style="display: none"/>
+<img src="img/lvl2/chouch.png" id="chouch" style="display: none"/>
+<img src="img/lvl2/level2.jpg" id="level2" style="display: none"/>
 
-<img src="docs/img/lvl3/level3.jpg" id="level3" style="display: none"/>
-<img src="docs/img/lvl3/signzoo.png" id="signzoo" style="display: none"/>
-<img src="docs/img/lvl3/zebra.png" id="zebra" style="display: none"/>
-<img src="docs/img/lvl3/zoosign.png" id="zoosign" style="display: none"/>
+<img src="img/lvl3/level3.jpg" id="level3" style="display: none"/>
+<img src="img/lvl3/signzoo.png" id="signzoo" style="display: none"/>
+<img src="img/lvl3/zebra.png" id="zebra" style="display: none"/>
+<img src="img/lvl3/zoosign.png" id="zoosign" style="display: none"/>
 
-<img src="docs/img/lvl4/level4.jpg" id="level4" style="display: none"/>
-<img src="docs/img/lvl4/kawaiihearts.png" id="kawaiihearts" style="display: none"/>
-<img src="docs/img/lvl4/kawaiirainbow.png" id="kawaiirainbow" style="display: none"/>
+<img src="img/lvl4/level4.jpg" id="level4" style="display: none"/>
+<img src="img/lvl4/kawaiihearts.png" id="kawaiihearts" style="display: none"/>
+<img src="img/lvl4/kawaiirainbow.png" id="kawaiirainbow" style="display: none"/>
 
-<img src="docs/img/emoji/appel.png" id="appel" style="display: none"/>
-<img src="docs/img/emoji/banana.png" id="banaan" style="display: none"/>
-<img src="docs/img/emoji/beer.png" id="beer" style="display: none"/>
-<img src="docs/img/emoji/bij.png" id="bij" style="display: none"/>
-<img src="docs/img/emoji/bloem.png" id="bloem" style="display: none"/>
-<img src="docs/img/emoji/boom.png" id="boom" style="display: none"/>
-<img src="docs/img/emoji/cat.png" id="kat" style="display: none"/>
-<img src="docs/img/emoji/das.png" id="das" style="display: none"/>
-<img src="docs/img/emoji/geit.png" id="geit" style="display: none"/>
-<img src="docs/img/emoji/hamster.png" id="hamster" style="display: none"/>
-<img src="docs/img/emoji/hond.png" id="hond" style="display: none"/>
-<img src="docs/img/emoji/kip.png" id="kip" style="display: none"/>
-<img src="docs/img/emoji/klap.png" id="klap" style="display: none"/>
-<img src="docs/img/emoji/koe.png" id="koe" style="display: none"/>
-<img src="docs/img/emoji/koegezicht.png" id="koegezicht" style="display: none"/>
-<img src="docs/img/emoji/krokodil.png" id="krokodil" style="display: none"/>
-<img src="docs/img/emoji/leeuw.png" id="leeuw" style="display: none"/>
-<img src="docs/img/emoji/mier.png" id="mier" style="display: none"/>
-<img src="docs/img/emoji/monkey.png" id="aap" style="display: none"/>
-<img src="docs/img/emoji/mouse.png" id="muis" style="display: none"/>
-<img src="docs/img/emoji/rat.png" id="rat" style="display: none"/>
-<img src="docs/img/emoji/schaap.png" id="schaap" style="display: none"/>
-<img src="docs/img/emoji/trex.png" id="dino" style="display: none"/>
-<img src="docs/img/emoji/vis.png" id="vis" style="display: none"/>
-<img src="docs/img/emoji/vlieg.png" id="vlieg" style="display: none"/>
-<img src="docs/img/emoji/vos.png" id="vos" style="display: none"/>
-<img src="docs/img/emoji/vuist.png" id="vuist" style="display: none"/>
+<img src="img/emoji/appel.png" id="appel" style="display: none"/>
+<img src="img/emoji/banana.png" id="banaan" style="display: none"/>
+<img src="img/emoji/beer.png" id="beer" style="display: none"/>
+<img src="img/emoji/bij.png" id="bij" style="display: none"/>
+<img src="img/emoji/bloem.png" id="bloem" style="display: none"/>
+<img src="img/emoji/boom.png" id="boom" style="display: none"/>
+<img src="img/emoji/cat.png" id="kat" style="display: none"/>
+<img src="img/emoji/das.png" id="das" style="display: none"/>
+<img src="img/emoji/geit.png" id="geit" style="display: none"/>
+<img src="img/emoji/hamster.png" id="hamster" style="display: none"/>
+<img src="img/emoji/hond.png" id="hond" style="display: none"/>
+<img src="img/emoji/kip.png" id="kip" style="display: none"/>
+<img src="img/emoji/klap.png" id="klap" style="display: none"/>
+<img src="img/emoji/koe.png" id="koe" style="display: none"/>
+<img src="img/emoji/koegezicht.png" id="koegezicht" style="display: none"/>
+<img src="img/emoji/krokodil.png" id="krokodil" style="display: none"/>
+<img src="img/emoji/leeuw.png" id="leeuw" style="display: none"/>
+<img src="img/emoji/mier.png" id="mier" style="display: none"/>
+<img src="img/emoji/monkey.png" id="aap" style="display: none"/>
+<img src="img/emoji/mouse.png" id="muis" style="display: none"/>
+<img src="img/emoji/rat.png" id="rat" style="display: none"/>
+<img src="img/emoji/schaap.png" id="schaap" style="display: none"/>
+<img src="img/emoji/trex.png" id="dino" style="display: none"/>
+<img src="img/emoji/vis.png" id="vis" style="display: none"/>
+<img src="img/emoji/vlieg.png" id="vlieg" style="display: none"/>
+<img src="img/emoji/vos.png" id="vos" style="display: none"/>
+<img src="img/emoji/vuist.png" id="vuist" style="display: none"/>
 
 <script src="js/main.js"></script>
 </body>
