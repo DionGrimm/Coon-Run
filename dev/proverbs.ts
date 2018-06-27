@@ -25,7 +25,7 @@ class Proverbs {
             incorrect: ["bloem", "bij"]
         },
         {
-            string: "De .. valt niet ver van de boom",
+            string: "De ... valt niet ver van de boom",
             correct: ["appel"],
             incorrect: ["banaan"]
         },
@@ -36,7 +36,7 @@ class Proverbs {
             incorrect: ["kip", "hamster"]
         }, 
         {
-            string: "... bijten niet",
+            string: "Blaffende ... bijten niet",
             correct: ["hond"],
             incorrect: ["kat"]
         },

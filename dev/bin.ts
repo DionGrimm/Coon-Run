@@ -60,7 +60,6 @@ class Bin extends basicObject {
             this.alive = false
             this.game.lifeCount--
             this.game.player.vulnerable = false
-<<<<<<< HEAD
             let sound:HTMLAudioElement = <HTMLAudioElement>document.getElementById('hitSnd')
             sound.play()
             if (this.game.lifeCount < 1) {
@@ -72,9 +71,6 @@ class Bin extends basicObject {
             this.game.levelObject.levelMusic = <HTMLAudioElement>document.getElementById('gameoverSong')
             this.game.levelObject.levelMusic.play()
             }
-=======
-            this.Sound.play()
->>>>>>> 13bc8c698b1d4efcf3f0846b430c7050c68baf80
         }
         
         // Draw

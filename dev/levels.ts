@@ -2,7 +2,7 @@ class Levels {
 
     private game:Game
     public proverbs:Proverbs = new Proverbs()
-    public levels:{level:number, sprite:HTMLImageElement, maxSpeed:number, acceleration:number, binChance:number, trashChance:number, wordChance:number, lifeChance:number, proverbArray:Array<number>, bgArray:Array<number>, night:boolean, music:HTMLAudioElement}[]
+    public levels:{level:number, sprite:HTMLImageElement, maxSpeed:number, acceleration:number, spawnCD:number, binChance:number, trashChance:number, wordChance:number, lifeChance:number, proverbArray:Array<number>, bgArray:Array<number>, night:boolean, music:HTMLAudioElement}[]
 
     public currentLevel:number = 0
     public currentProverb:number = 0
@@ -33,7 +33,7 @@ class Levels {
 
                 maxSpeed: 0,
                 acceleration: 0,
-
+                spawnCD: 89,
                 // Bin chances
                 binChance: 0,
                 trashChance: 0,
@@ -50,10 +50,11 @@ class Levels {
                 sprite: <HTMLImageElement>document.getElementById('level1'),
 
                 maxSpeed: 15,
-                acceleration: 0.001,
+                acceleration: 0.002,
+                spawnCD: 85,
                 // chances
-                binChance: .4,
-                trashChance: .5,
+                binChance: .5,
+                trashChance: .7,
                 wordChance: .97,
                 lifeChance: 1,
 
@@ -67,7 +68,8 @@ class Levels {
                 sprite: <HTMLImageElement>document.getElementById('level0'),
 
                 maxSpeed: 16,
-                acceleration: 0.0015,
+                acceleration: 0.002,
+                spawnCD: 80,
                 // Bin chances
                 binChance: .45,
                 trashChance: .95,
@@ -84,10 +86,11 @@ class Levels {
                 sprite: <HTMLImageElement>document.getElementById('level2'),
 
                 maxSpeed: 17,
-                acceleration: 0.002,
+                acceleration: 0.003,
+                spawnCD: 75,
                 // Bin chances
-                binChance: .4,
-                trashChance: .5,
+                binChance: .55,
+                trashChance: .7,
                 wordChance: .97,
                 lifeChance: 1,
 
@@ -102,9 +105,10 @@ class Levels {
 
                 maxSpeed: 18,
                 acceleration: 0.002,
+                spawnCD: 70,
                 // Bin chances
-                binChance: .45,
-                trashChance: .95,
+                binChance: .55,
+                trashChance: .97,
                 wordChance: 0,
                 lifeChance: 1,
 
@@ -119,9 +123,10 @@ class Levels {
 
                 maxSpeed: 19,
                 acceleration: 0.0025,
+                spawnCD: 65,
                 // Bin chances
-                binChance: .4,
-                trashChance: .5,
+                binChance: 60,
+                trashChance: .7,
                 wordChance: .97,
                 lifeChance: 1,
 
@@ -135,7 +140,8 @@ class Levels {
                 sprite: <HTMLImageElement>document.getElementById('level0'),
 
                 maxSpeed: 20,
-                acceleration: 0.0025,
+                acceleration: 0.003,
+                spawnCD: 60,
                 // Bin chances
                 binChance: .45,
                 trashChance: .95,
@@ -151,11 +157,12 @@ class Levels {
                 level: 7,
                 sprite: <HTMLImageElement>document.getElementById('level4'),
 
-                maxSpeed: 21,
-                acceleration: 0.003,
+                maxSpeed: 1920,
+                acceleration: 0.005,
+                spawnCD: 40,
                 // Bin chances
-                binChance: .45,
-                trashChance: .95,
+                binChance: .65,
+                trashChance: .98,
                 wordChance: 0,
                 lifeChance: 1,
 
@@ -186,7 +193,6 @@ class Levels {
             this.proverbProgress = this.proverbs.list[this.currentProverb].correct.slice()
             this.currentString = this.proverbs.list[this.currentProverb].string
             if (this.nightOver) {
-                console.log("night over");
                 this.nightOver = false
                 if (this.currentLevel != this.maxLevel) {
                     this.currentLevel++
@@ -260,6 +266,13 @@ class Levels {
         this.game.score = 0
         this.game.bgSpeed = 1
         this.game.cloudSpeed = .5
+        // Remove all the stuff from the screen
+        this.game.Spawner.bins = []
+        this.game.Spawner.words = []
+        this.game.Spawner.clouds = []
+        this.game.Spawner.bgObject = []
+        this.game.Spawner.lifes = []
+        this.game.Spawner.trash = []
     }
 
     // Gets the random proverb and resets the proverbprogress with a new correct array and updates the string

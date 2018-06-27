@@ -101,28 +101,28 @@ var Spawner = (function () {
             this.spawnCD--;
         }
         if (this.spawnCD < 1) {
-            this.spawnCD = this.spawnMaxCD;
             this.canSpawn = true;
         }
         if (!this.game.dead && this.game.levelObject.currentLevel != 0) {
             if (this.canSpawn) {
                 this.canSpawn = false;
+                this.spawnCD = this.getRandomInt(this.game.levelObject.levels[this.game.levelObject.currentLevel].spawnCD, 100);
                 var chance = Math.random();
                 if (chance < this.binChance) {
                     this.spawnBin();
                     var chance_1 = Math.random();
-                    if (chance_1 < .5) {
+                    if (chance_1 < this.game.levelObject.levels[this.game.levelObject.currentLevel].binChance) {
                     }
-                    else if (chance_1 < .97) {
+                    else if (chance_1 < 98) {
                         var height = this.game.ground - 350;
                         this.spawnTrash(height);
                     }
-                    else if (chance_1 < this.lifeChance) {
+                    else if (chance_1 < 1) {
                         var height = this.game.ground - 350;
                         this.spawnLife(height);
                     }
                 }
-                else if (chance < this.trashChance) {
+                else if (chance < this.game.levelObject.levels[this.game.levelObject.currentLevel].trashChance) {
                     var height = void 0;
                     if (Math.random() > .5) {
                         height = this.game.ground - 150;
@@ -132,7 +132,7 @@ var Spawner = (function () {
                     }
                     this.spawnTrash(height);
                 }
-                else if (chance < this.wordChance) {
+                else if (chance < this.game.levelObject.levels[this.game.levelObject.currentLevel].wordChance) {
                     var height = void 0;
                     if (Math.random() > .5) {
                         height = this.game.ground - 180;
@@ -142,7 +142,7 @@ var Spawner = (function () {
                     }
                     this.spawnWord(height);
                 }
-                else if (chance < this.lifeChance) {
+                else if (chance < this.game.levelObject.levels[this.game.levelObject.currentLevel].lifeChance) {
                     var height = this.game.ground - 350;
                     this.spawnLife(height);
                 }
@@ -265,6 +265,9 @@ var Spawner = (function () {
     };
     Spawner.prototype.spawnLife = function (height) {
         this.lifes.push(new Life(this.game, height));
+    };
+    Spawner.prototype.getRandomInt = function (min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
     };
     return Spawner;
 }());
@@ -457,7 +460,7 @@ var BgObject = (function (_super) {
         return _this;
     }
     BgObject.prototype.update = function () {
-        this.hspeed = this.game.cloudSpeed;
+        this.hspeed = this.game.bgSpeed;
         _super.prototype.update.call(this);
     };
     return BgObject;
@@ -548,6 +551,7 @@ var Levels = (function () {
                 sprite: document.getElementById('level1'),
                 maxSpeed: 0,
                 acceleration: 0,
+                spawnCD: 89,
                 binChance: 0,
                 trashChance: 0,
                 wordChance: 0,
@@ -561,9 +565,10 @@ var Levels = (function () {
                 level: 1,
                 sprite: document.getElementById('level1'),
                 maxSpeed: 15,
-                acceleration: 0.001,
-                binChance: .4,
-                trashChance: .5,
+                acceleration: 0.002,
+                spawnCD: 85,
+                binChance: .5,
+                trashChance: .7,
                 wordChance: .97,
                 lifeChance: 1,
                 proverbArray: [1, 2, 3, 4],
@@ -575,7 +580,8 @@ var Levels = (function () {
                 level: 2,
                 sprite: document.getElementById('level0'),
                 maxSpeed: 16,
-                acceleration: 0.0015,
+                acceleration: 0.002,
+                spawnCD: 80,
                 binChance: .45,
                 trashChance: .95,
                 wordChance: 0,
@@ -589,9 +595,10 @@ var Levels = (function () {
                 level: 3,
                 sprite: document.getElementById('level2'),
                 maxSpeed: 17,
-                acceleration: 0.002,
-                binChance: .4,
-                trashChance: .5,
+                acceleration: 0.003,
+                spawnCD: 75,
+                binChance: .55,
+                trashChance: .7,
                 wordChance: .97,
                 lifeChance: 1,
                 proverbArray: [5, 6, 7, 8, 9, 10],
@@ -604,8 +611,9 @@ var Levels = (function () {
                 sprite: document.getElementById('level0'),
                 maxSpeed: 18,
                 acceleration: 0.002,
-                binChance: .45,
-                trashChance: .95,
+                spawnCD: 70,
+                binChance: .55,
+                trashChance: .97,
                 wordChance: 0,
                 lifeChance: 1,
                 proverbArray: [0],
@@ -618,8 +626,9 @@ var Levels = (function () {
                 sprite: document.getElementById('level3'),
                 maxSpeed: 19,
                 acceleration: 0.0025,
-                binChance: .4,
-                trashChance: .5,
+                spawnCD: 65,
+                binChance: 60,
+                trashChance: .7,
                 wordChance: .97,
                 lifeChance: 1,
                 proverbArray: [11, 12, 13, 14, 15],
@@ -631,7 +640,8 @@ var Levels = (function () {
                 level: 6,
                 sprite: document.getElementById('level0'),
                 maxSpeed: 20,
-                acceleration: 0.0025,
+                acceleration: 0.003,
+                spawnCD: 60,
                 binChance: .45,
                 trashChance: .95,
                 wordChance: 0,
@@ -644,10 +654,11 @@ var Levels = (function () {
             {
                 level: 7,
                 sprite: document.getElementById('level4'),
-                maxSpeed: 21,
-                acceleration: 0.003,
-                binChance: .45,
-                trashChance: .95,
+                maxSpeed: 1920,
+                acceleration: 0.005,
+                spawnCD: 40,
+                binChance: .65,
+                trashChance: .98,
                 wordChance: 0,
                 lifeChance: 1,
                 proverbArray: [0],
@@ -671,7 +682,6 @@ var Levels = (function () {
             this.proverbProgress = this.proverbs.list[this.currentProverb].correct.slice();
             this.currentString = this.proverbs.list[this.currentProverb].string;
             if (this.nightOver) {
-                console.log("night over");
                 this.nightOver = false;
                 if (this.currentLevel != this.maxLevel) {
                     this.currentLevel++;
@@ -733,6 +743,12 @@ var Levels = (function () {
         this.game.score = 0;
         this.game.bgSpeed = 1;
         this.game.cloudSpeed = .5;
+        this.game.Spawner.bins = [];
+        this.game.Spawner.words = [];
+        this.game.Spawner.clouds = [];
+        this.game.Spawner.bgObject = [];
+        this.game.Spawner.lifes = [];
+        this.game.Spawner.trash = [];
     };
     Levels.prototype.switchProverb = function () {
         this.currentProverb = this.random();
@@ -961,7 +977,7 @@ var Proverbs = (function () {
                 incorrect: ["bloem", "bij"]
             },
             {
-                string: "De .. valt niet ver van de boom",
+                string: "De ... valt niet ver van de boom",
                 correct: ["appel"],
                 incorrect: ["banaan"]
             },
@@ -971,7 +987,7 @@ var Proverbs = (function () {
                 incorrect: ["kip", "hamster"]
             },
             {
-                string: "... bijten niet",
+                string: "Blaffende ... bijten niet",
                 correct: ["hond"],
                 incorrect: ["kat"]
             },

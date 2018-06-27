@@ -56,30 +56,31 @@ class Spawner {
         }
 
         if (this.spawnCD < 1) {
-            this.spawnCD = this.spawnMaxCD
             this.canSpawn = true
         }
 
         if (!this.game.dead && this.game.levelObject.currentLevel != 0) {
             if (this.canSpawn) {
                 this.canSpawn = false
+                this.spawnCD = this.getRandomInt(this.game.levelObject.levels[this.game.levelObject.currentLevel].spawnCD, 100)
+                
                 let chance = Math.random()
                 if (chance < this.binChance) {
                     // Spawn bin
                     this.spawnBin()
                     let chance = Math.random()
-                    if (chance < .5) {
+                    if (chance < this.game.levelObject.levels[this.game.levelObject.currentLevel].binChance) {
                         // add nothing
-                    } else if (chance < .97) {
+                    } else if (chance < 98) {
                         // add Trash
                         let height:number = this.game.ground - 350
                         this.spawnTrash(height)
-                    } else if (chance < this.lifeChance) {
+                    } else if (chance < 1) {
                         // add life
                         let height:number = this.game.ground - 350
                         this.spawnLife(height)
                     }
-                } else if (chance < this.trashChance) {
+                } else if (chance < this.game.levelObject.levels[this.game.levelObject.currentLevel].trashChance) {
                     // Spawn Trash
                     let height:number
                     if (Math.random() > .5) {
@@ -88,7 +89,7 @@ class Spawner {
                         height = this.game.ground - 350
                     }
                     this.spawnTrash(height)
-                } else if (chance < this.wordChance) {
+                } else if (chance < this.game.levelObject.levels[this.game.levelObject.currentLevel].wordChance) {
                     // Spawn word
                     let height:number
                     if (Math.random() > .5) {
@@ -97,7 +98,7 @@ class Spawner {
                         height = this.game.ground - 350
                     }
                     this.spawnWord(height)
-                } else if (chance < this.lifeChance) {
+                } else if (chance < this.game.levelObject.levels[this.game.levelObject.currentLevel].lifeChance) {
                     // Spawn life
                     let height:number = this.game.ground - 350
                     this.spawnLife(height)
@@ -105,31 +106,30 @@ class Spawner {
             }
         
 
+            // Cloud spawn
+            if(this.cloudSpawnCD > 0 && !this.canSpawnCloud) {
+                this.cloudSpawnCD--
+            } else {
+                this.cloudSpawnCD = this.cloudSpawnMaxCD
+                this.canSpawnCloud = true
+            }
+            if (Math.random() < this.cloudChance && this.canSpawnCloud) {
+                this.clouds.push (new Cloud(this.game))
+                this.canSpawnCloud = false
+            }    
 
-        // Cloud spawn
-        if(this.cloudSpawnCD > 0 && !this.canSpawnCloud) {
-            this.cloudSpawnCD--
-        } else {
-            this.cloudSpawnCD = this.cloudSpawnMaxCD
-            this.canSpawnCloud = true
+            // bgObject spawn
+            if(this.bgCD > 0 && !this.canSpawnBg) {
+                this.bgCD--
+            } else {
+                this.bgCD = this.bgSpawnMaxCD
+                this.canSpawnBg = true
+            }
+            if (Math.random() < this.bgChance && this.canSpawnBg) {
+                this.bgObject.push (new BgObject(this.game))
+                this.canSpawnBg = false
+            }   
         }
-        if (Math.random() < this.cloudChance && this.canSpawnCloud) {
-            this.clouds.push (new Cloud(this.game))
-            this.canSpawnCloud = false
-        }    
-
-        // bgObject spawn
-        if(this.bgCD > 0 && !this.canSpawnBg) {
-            this.bgCD--
-        } else {
-            this.bgCD = this.bgSpawnMaxCD
-            this.canSpawnBg = true
-        }
-        if (Math.random() < this.bgChance && this.canSpawnBg) {
-            this.bgObject.push (new BgObject(this.game))
-            this.canSpawnBg = false
-        }   
-    }
 
         // Cloud
         let deleteCloud = []
@@ -282,5 +282,9 @@ class Spawner {
             this.lifes.push (new Life(this.game, height))
             //this.canSpawnLife = false
         //}
+    }
+
+    getRandomInt(min:number, max:number) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 }

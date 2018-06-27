@@ -20,12 +20,8 @@ class Life extends basicObject {
         if (this.game.collision(this)) { 
             this.alive = false
             this.game.lifeCount++
-<<<<<<< HEAD
             let sound:HTMLAudioElement = <HTMLAudioElement>document.getElementById('lifeSnd')
             sound.play()
-=======
-            this.Sound.play()
->>>>>>> 13bc8c698b1d4efcf3f0846b430c7050c68baf80
         }
 
         // Draw
