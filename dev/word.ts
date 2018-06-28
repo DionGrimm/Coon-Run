@@ -32,12 +32,12 @@ class Word {
             this.alive = false
             if(!this.fake) { 
                 this.game.levelObject.proverbProgress.splice(this.index, 1)  
-                this.game.score += 1000  
+                this.game.score += 2500  
                 let sound:HTMLAudioElement = <HTMLAudioElement>document.getElementById('correctSnd')
                 sound.play()
             } else {
                 // Loses points
-                this.game.score -= 1000  
+                this.game.score -= 5000  
                 if (this.game.score < 0) {
                     this.game.score = 0
                 }

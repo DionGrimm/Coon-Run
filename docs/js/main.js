@@ -61,30 +61,22 @@ var Spawner = (function () {
         this.bins = [];
         this.binChance = 0.4;
         this.canSpawnBin = false;
-        this.binSpawnMaxCD = 1;
-        this.binSpawnCD = this.binSpawnMaxCD;
         this.single = 0;
         this.double = 1;
         this.triple = 2;
         this.words = [];
         this.wordChance = 0.95;
         this.canSpawnWord = false;
-        this.wordSpawnMaxCD = 1;
-        this.wordSpawnCD = this.wordSpawnMaxCD;
         this.lifes = [];
         this.lifeChance = 1;
         this.canSpawnLife = false;
-        this.lifeSpawnMaxCD = 1;
-        this.lifeSpawnCD = this.lifeSpawnMaxCD;
         this.trash = [];
         this.trashChance = 0.65;
         this.canSpawntrash = false;
-        this.trashSpawnMaxCD = 1;
-        this.trashSpawnCD = this.trashSpawnMaxCD;
         this.clouds = [];
         this.cloudChance = 0.1;
         this.canSpawnCloud = false;
-        this.cloudSpawnMaxCD = 1500;
+        this.cloudSpawnMaxCD = 2000;
         this.cloudSpawnCD = 60;
         this.bgObject = [];
         this.bgChance = 0.1;
@@ -93,6 +85,7 @@ var Spawner = (function () {
         this.bgCD = 60;
         this.canSpawn = false;
         this.spawnMaxCD = 90;
+        this.spawnMinCD = 90;
         this.spawnCD = this.spawnMaxCD;
         this.game = game;
     }
@@ -100,20 +93,20 @@ var Spawner = (function () {
         if (this.spawnCD > 0) {
             this.spawnCD--;
         }
-        if (this.spawnCD < 1) {
+        if (this.spawnCD <= 0) {
             this.canSpawn = true;
         }
-        if (!this.game.dead && this.game.levelObject.currentLevel != 0) {
+        if (!this.game.dead && this.game.levelObject.currentLevel != 0 && !this.game.levelObject.levelBreak) {
             if (this.canSpawn) {
                 this.canSpawn = false;
-                this.spawnCD = this.getRandomInt(this.game.levelObject.levels[this.game.levelObject.currentLevel].spawnCD, 100);
+                this.spawnCD = this.getRandomInt(this.spawnMinCD, this.spawnMaxCD);
                 var chance = Math.random();
                 if (chance < this.binChance) {
                     this.spawnBin();
                     var chance_1 = Math.random();
-                    if (chance_1 < this.game.levelObject.levels[this.game.levelObject.currentLevel].binChance) {
+                    if (chance_1 < this.binChance) {
                     }
-                    else if (chance_1 < 98) {
+                    else if (chance_1 < 97) {
                         var height = this.game.ground - 350;
                         this.spawnTrash(height);
                     }
@@ -122,7 +115,7 @@ var Spawner = (function () {
                         this.spawnLife(height);
                     }
                 }
-                else if (chance < this.game.levelObject.levels[this.game.levelObject.currentLevel].trashChance) {
+                else if (chance < this.trashChance) {
                     var height = void 0;
                     if (Math.random() > .5) {
                         height = this.game.ground - 150;
@@ -132,7 +125,7 @@ var Spawner = (function () {
                     }
                     this.spawnTrash(height);
                 }
-                else if (chance < this.game.levelObject.levels[this.game.levelObject.currentLevel].wordChance) {
+                else if (chance < this.wordChance) {
                     var height = void 0;
                     if (Math.random() > .5) {
                         height = this.game.ground - 180;
@@ -142,7 +135,7 @@ var Spawner = (function () {
                     }
                     this.spawnWord(height);
                 }
-                else if (chance < this.game.levelObject.levels[this.game.levelObject.currentLevel].lifeChance) {
+                else if (chance < this.lifeChance) {
                     var height = this.game.ground - 350;
                     this.spawnLife(height);
                 }
@@ -309,10 +302,10 @@ var Game = (function () {
         this.score = 0;
         this.highscore = 0;
         this.dead = false;
-        this.startObjSpeed = 12;
+        this.startObjSpeed = 13;
         this.objSpeed = this.startObjSpeed;
         this.bgSpeed = 1;
-        this.cloudSpeed = .5;
+        this.cloudSpeed = .1;
         this.sun = document.getElementById('sun');
         this.moon = document.getElementById('moon');
         this.life = document.getElementById('life');
@@ -350,7 +343,11 @@ var Game = (function () {
             _this.ctx.font = "48px VT323";
             _this.ctx.fillText(_this.levelObject.currentString, _this.canvasWidth / 2, 100);
             if (_this.levelObject.currentLevel == 0) {
+                if (_this.score > 0)
+                    _this.ctx.fillText("" + _this.score, _this.canvasWidth / 2, _this.canvas.height / 2 - 150);
                 _this.ctx.fillText("PRESS SPACE TO START", _this.canvasWidth / 2, _this.canvas.height / 2);
+                _this.ctx.fillText("Jump with Space", _this.canvasWidth / 2, _this.canvas.height / 2 + 150);
+                _this.ctx.fillText("Duck with Down arrow key", _this.canvasWidth / 2, _this.canvas.height / 2 + 200);
             }
             _this.ctx.stroke();
             requestAnimationFrame(_this.gameLoop);
@@ -543,7 +540,7 @@ var Levels = (function () {
         this.levelCountdown = 300;
         this.levelBreak = false;
         this.nightOver = false;
-        this.nightCountdown = 900;
+        this.nightCountdown = 1500;
         this.game = game;
         this.levels = [
             {
@@ -551,7 +548,7 @@ var Levels = (function () {
                 sprite: document.getElementById('level1'),
                 maxSpeed: 0,
                 acceleration: 0,
-                spawnCD: 89,
+                spawnCD: 80,
                 binChance: 0,
                 trashChance: 0,
                 wordChance: 0,
@@ -564,12 +561,12 @@ var Levels = (function () {
             {
                 level: 1,
                 sprite: document.getElementById('level1'),
-                maxSpeed: 15,
-                acceleration: 0.002,
-                spawnCD: 85,
+                maxSpeed: 20,
+                acceleration: 0.001,
+                spawnCD: 75,
                 binChance: .5,
                 trashChance: .7,
-                wordChance: .97,
+                wordChance: .96,
                 lifeChance: 1,
                 proverbArray: [1, 2, 3, 4],
                 bgArray: [2, 3, 4],
@@ -579,11 +576,11 @@ var Levels = (function () {
             {
                 level: 2,
                 sprite: document.getElementById('level0'),
-                maxSpeed: 16,
+                maxSpeed: 25,
                 acceleration: 0.002,
-                spawnCD: 80,
-                binChance: .45,
-                trashChance: .95,
+                spawnCD: 70,
+                binChance: .5,
+                trashChance: .96,
                 wordChance: 0,
                 lifeChance: 1,
                 proverbArray: [0],
@@ -594,9 +591,9 @@ var Levels = (function () {
             {
                 level: 3,
                 sprite: document.getElementById('level2'),
-                maxSpeed: 17,
-                acceleration: 0.003,
-                spawnCD: 75,
+                maxSpeed: 30,
+                acceleration: 0.001,
+                spawnCD: 65,
                 binChance: .55,
                 trashChance: .7,
                 wordChance: .97,
@@ -609,9 +606,9 @@ var Levels = (function () {
             {
                 level: 4,
                 sprite: document.getElementById('level0'),
-                maxSpeed: 18,
+                maxSpeed: 35,
                 acceleration: 0.002,
-                spawnCD: 70,
+                spawnCD: 60,
                 binChance: .55,
                 trashChance: .97,
                 wordChance: 0,
@@ -624,10 +621,10 @@ var Levels = (function () {
             {
                 level: 5,
                 sprite: document.getElementById('level3'),
-                maxSpeed: 19,
-                acceleration: 0.0025,
-                spawnCD: 65,
-                binChance: 60,
+                maxSpeed: 40,
+                acceleration: 0.001,
+                spawnCD: 55,
+                binChance: .6,
                 trashChance: .7,
                 wordChance: .97,
                 lifeChance: 1,
@@ -639,11 +636,11 @@ var Levels = (function () {
             {
                 level: 6,
                 sprite: document.getElementById('level0'),
-                maxSpeed: 20,
-                acceleration: 0.003,
-                spawnCD: 60,
-                binChance: .45,
-                trashChance: .95,
+                maxSpeed: 45,
+                acceleration: 0.002,
+                spawnCD: 50,
+                binChance: .7,
+                trashChance: .98,
                 wordChance: 0,
                 lifeChance: 1,
                 proverbArray: [0],
@@ -654,10 +651,10 @@ var Levels = (function () {
             {
                 level: 7,
                 sprite: document.getElementById('level4'),
-                maxSpeed: 1920,
-                acceleration: 0.005,
-                spawnCD: 40,
-                binChance: .65,
+                maxSpeed: 100,
+                acceleration: 0.001,
+                spawnCD: 45,
+                binChance: .7,
                 trashChance: .98,
                 wordChance: 0,
                 lifeChance: 1,
@@ -696,6 +693,7 @@ var Levels = (function () {
             this.switchProverb();
         }
         if (this.levelBreak) {
+            this.game.Spawner.spawnMinCD = 0;
             this.game.Spawner.binChance = 0;
             this.game.Spawner.trashChance = 0;
             this.game.Spawner.wordChance = 0;
@@ -723,8 +721,10 @@ var Levels = (function () {
         }
         if (this.game.dead) {
             this.currentLevel = 0;
+            this.currentString = "";
             this.game.bgSpeed = 0;
             this.game.cloudSpeed = 0;
+            this.game.Spawner.spawnMinCD = 0;
             this.game.Spawner.binChance = 0;
             this.game.Spawner.trashChance = 0;
             this.game.Spawner.wordChance = 0;
@@ -767,6 +767,7 @@ var Levels = (function () {
         this.levelProgress = this.levels[this.currentLevel].proverbArray.slice();
         this.levelSprite = this.levels[this.currentLevel].sprite;
         this.switchProverb();
+        this.game.Spawner.spawnMinCD = this.levels[this.currentLevel].spawnCD;
         this.game.Spawner.binChance = this.levels[this.currentLevel].binChance;
         this.game.Spawner.trashChance = this.levels[this.currentLevel].trashChance;
         this.game.Spawner.wordChance = this.levels[this.currentLevel].wordChance;
@@ -882,8 +883,10 @@ var Player = (function () {
             this.grounded = true;
         if (this.grounded) {
             this.vSpeed = 0;
-            if (this.mPressed)
+            if (this.mPressed) {
                 this.jumping = true;
+                this.sound.play();
+            }
         }
         if (this.jumping && this.mReleased && this.y < this.minJumpHeight) {
             this.jumping = false;
@@ -927,7 +930,6 @@ var Player = (function () {
             else if (!this.ducking) {
                 this.mPressed = true;
                 this.mReleased = false;
-                this.sound.play();
             }
         }
         if (!this.game.dead && this.game.levelObject.currentLevel != 0) {
@@ -1077,12 +1079,12 @@ var Word = (function () {
             this.alive = false;
             if (!this.fake) {
                 this.game.levelObject.proverbProgress.splice(this.index, 1);
-                this.game.score += 1000;
+                this.game.score += 2500;
                 var sound = document.getElementById('correctSnd');
                 sound.play();
             }
             else {
-                this.game.score -= 1000;
+                this.game.score -= 5000;
                 if (this.game.score < 0) {
                     this.game.score = 0;
                 }

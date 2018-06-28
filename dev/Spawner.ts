@@ -4,8 +4,6 @@ class Spawner {
     public bins:Array<Bin> = [];
     public binChance = 0.4 // Chance of bin spawning
     public canSpawnBin:boolean = false
-    public binSpawnMaxCD: number = 1
-    public binSpawnCD:number = this.binSpawnMaxCD
     public single = 0
     public double = 1
     public triple = 2
@@ -13,25 +11,19 @@ class Spawner {
     public words:Array<Word> = [];
     public wordChance = 0.95
     public canSpawnWord:boolean = false
-    public wordSpawnMaxCD:number = 1
-    public wordSpawnCD:number = this.wordSpawnMaxCD
   
     public lifes:Array<Life> = [];
     public lifeChance = 1
     public canSpawnLife:boolean = false
-    public lifeSpawnMaxCD:number = 1
-    public lifeSpawnCD:number = this.lifeSpawnMaxCD
 
     public trash:Array<Life> = [];
     public trashChance = 0.65
     public canSpawntrash:boolean = false
-    public trashSpawnMaxCD:number = 1
-    public trashSpawnCD:number = this.trashSpawnMaxCD
 
     public clouds:Array<Cloud> = [];
     public cloudChance = 0.1
     public canSpawnCloud:boolean = false
-    public cloudSpawnMaxCD:number = 1500
+    public cloudSpawnMaxCD:number = 2000
     public cloudSpawnCD:number = 60
 
     public bgObject:Array<Life> = [];
@@ -42,6 +34,7 @@ class Spawner {
 
     public canSpawn:boolean = false
     public spawnMaxCD:number = 90
+    public spawnMinCD:number = 90
     public spawnCD:number = this.spawnMaxCD
 
     constructor (game:Game) {
@@ -55,23 +48,23 @@ class Spawner {
             this.spawnCD--
         }
 
-        if (this.spawnCD < 1) {
+        if (this.spawnCD <= 0) {
             this.canSpawn = true
         }
 
-        if (!this.game.dead && this.game.levelObject.currentLevel != 0) {
+        if (!this.game.dead && this.game.levelObject.currentLevel != 0 && !this.game.levelObject.levelBreak) {
             if (this.canSpawn) {
                 this.canSpawn = false
-                this.spawnCD = this.getRandomInt(this.game.levelObject.levels[this.game.levelObject.currentLevel].spawnCD, 100)
+                this.spawnCD = this.getRandomInt(this.spawnMinCD, this.spawnMaxCD)
                 
                 let chance = Math.random()
                 if (chance < this.binChance) {
                     // Spawn bin
                     this.spawnBin()
                     let chance = Math.random()
-                    if (chance < this.game.levelObject.levels[this.game.levelObject.currentLevel].binChance) {
+                    if (chance < this.binChance) {
                         // add nothing
-                    } else if (chance < 98) {
+                    } else if (chance < 97) {
                         // add Trash
                         let height:number = this.game.ground - 350
                         this.spawnTrash(height)
@@ -80,7 +73,7 @@ class Spawner {
                         let height:number = this.game.ground - 350
                         this.spawnLife(height)
                     }
-                } else if (chance < this.game.levelObject.levels[this.game.levelObject.currentLevel].trashChance) {
+                } else if (chance < this.trashChance) {
                     // Spawn Trash
                     let height:number
                     if (Math.random() > .5) {
@@ -89,7 +82,7 @@ class Spawner {
                         height = this.game.ground - 350
                     }
                     this.spawnTrash(height)
-                } else if (chance < this.game.levelObject.levels[this.game.levelObject.currentLevel].wordChance) {
+                } else if (chance < this.wordChance) {
                     // Spawn word
                     let height:number
                     if (Math.random() > .5) {
@@ -98,7 +91,7 @@ class Spawner {
                         height = this.game.ground - 350
                     }
                     this.spawnWord(height)
-                } else if (chance < this.game.levelObject.levels[this.game.levelObject.currentLevel].lifeChance) {
+                } else if (chance < this.lifeChance) {
                     // Spawn life
                     let height:number = this.game.ground - 350
                     this.spawnLife(height)
@@ -213,13 +206,6 @@ class Spawner {
 
     spawnBin():void {
         // Spawn bin
-        /*if (this.binSpawnCD > 0 && !this.canSpawnBin) {
-            this.binSpawnCD--
-        } else {
-            this.binSpawnCD = this.binSpawnMaxCD
-            this.canSpawnBin = true // Bin may spawn when spawnCD hits 0
-        }
-        if (this.canSpawnBin) {*/
             let binType:number
             if (Math.random()>.5) { // Decide on bin type
                 binType = this.single
@@ -228,33 +214,15 @@ class Spawner {
             }
             // New bin
             this.bins.push(new Bin(this.game, binType))
-            //this.canSpawnBin = false // Restart the cooldown for spawning
-        //}
     }
 
     spawnTrash(height:number):void {
         // Trash Spawn
-        /*if(this.trashSpawnCD > 0 && !this.canSpawntrash) {
-            this.trashSpawnCD--
-        } else {
-            this.trashSpawnCD = 1100
-            this.canSpawntrash = true
-        }
-        if (this.canSpawntrash) {*/
             this.trash.push (new Trash(this.game, height))
-            //this.canSpawntrash = false
-        //}
     }
 
     spawnWord(height:number):void {
         // Word Spawn
-        /*if (this.wordSpawnCD > 0 && !this.canSpawnWord) {
-            this.wordSpawnCD--
-        } else {
-            this.wordSpawnCD = 150
-            this.canSpawnWord = true
-        }
-        if (this.canSpawnWord && this.game.levelObject.currentLevel != 7 && !this.game.levelObject.levelBreak && !this.game.levelObject.levels[this.game.levelObject.currentLevel].night) {*/
             let fake:boolean
             let name:number
             if (Math.random()>.6) {
@@ -266,22 +234,11 @@ class Spawner {
             }
             // New word
             this.words.push(new Word(this.game, name, fake, height))
-            //this.canSpawnWord = false
-        //}
     }
 
     spawnLife(height:number):void {
         // Life Spawn
-        /*if(this.lifeSpawnCD > 0 && !this.canSpawnLife) {
-            this.lifeSpawnCD--
-        } else {
-            this.lifeSpawnCD = 1100
-            this.canSpawnLife = true
-        }
-        if (this.canSpawnLife) {*/
             this.lifes.push (new Life(this.game, height))
-            //this.canSpawnLife = false
-        //}
     }
 
     getRandomInt(min:number, max:number) {

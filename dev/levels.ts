@@ -19,7 +19,7 @@ class Levels {
     public levelBreak:boolean = false
 
     private nightOver:boolean = false
-    private nightCountdown:number = 900
+    private nightCountdown:number = 1500
 
     public levelMusic:HTMLAudioElement
 
@@ -33,7 +33,7 @@ class Levels {
 
                 maxSpeed: 0,
                 acceleration: 0,
-                spawnCD: 89,
+                spawnCD: 80,
                 // Bin chances
                 binChance: 0,
                 trashChance: 0,
@@ -49,13 +49,13 @@ class Levels {
                 level: 1,
                 sprite: <HTMLImageElement>document.getElementById('level1'),
 
-                maxSpeed: 15,
-                acceleration: 0.002,
-                spawnCD: 85,
+                maxSpeed: 20,
+                acceleration: 0.001,
+                spawnCD: 75,
                 // chances
                 binChance: .5,
                 trashChance: .7,
-                wordChance: .97,
+                wordChance: .96,
                 lifeChance: 1,
 
                 proverbArray: [1,2,3,4],
@@ -67,12 +67,12 @@ class Levels {
                 level: 2,
                 sprite: <HTMLImageElement>document.getElementById('level0'),
 
-                maxSpeed: 16,
+                maxSpeed: 25,
                 acceleration: 0.002,
-                spawnCD: 80,
+                spawnCD: 70,
                 // Bin chances
-                binChance: .45,
-                trashChance: .95,
+                binChance: .5,
+                trashChance: .96,
                 wordChance: 0,
                 lifeChance: 1,
 
@@ -85,9 +85,9 @@ class Levels {
                 level: 3,
                 sprite: <HTMLImageElement>document.getElementById('level2'),
 
-                maxSpeed: 17,
-                acceleration: 0.003,
-                spawnCD: 75,
+                maxSpeed: 30,
+                acceleration: 0.001,
+                spawnCD: 65,
                 // Bin chances
                 binChance: .55,
                 trashChance: .7,
@@ -103,9 +103,9 @@ class Levels {
                 level: 4,
                 sprite: <HTMLImageElement>document.getElementById('level0'),
 
-                maxSpeed: 18,
+                maxSpeed: 35,
                 acceleration: 0.002,
-                spawnCD: 70,
+                spawnCD: 60,
                 // Bin chances
                 binChance: .55,
                 trashChance: .97,
@@ -121,11 +121,11 @@ class Levels {
                 level: 5,
                 sprite: <HTMLImageElement>document.getElementById('level3'),
 
-                maxSpeed: 19,
-                acceleration: 0.0025,
-                spawnCD: 65,
+                maxSpeed: 40,
+                acceleration: 0.001,
+                spawnCD: 55,
                 // Bin chances
-                binChance: 60,
+                binChance: .6,
                 trashChance: .7,
                 wordChance: .97,
                 lifeChance: 1,
@@ -139,12 +139,12 @@ class Levels {
                 level: 6,
                 sprite: <HTMLImageElement>document.getElementById('level0'),
 
-                maxSpeed: 20,
-                acceleration: 0.003,
-                spawnCD: 60,
+                maxSpeed: 45,
+                acceleration: 0.002,
+                spawnCD: 50,
                 // Bin chances
-                binChance: .45,
-                trashChance: .95,
+                binChance: .7,
+                trashChance: .98,
                 wordChance: 0,
                 lifeChance: 1,
 
@@ -157,11 +157,11 @@ class Levels {
                 level: 7,
                 sprite: <HTMLImageElement>document.getElementById('level4'),
 
-                maxSpeed: 1920,
-                acceleration: 0.005,
-                spawnCD: 40,
+                maxSpeed: 100,
+                acceleration: 0.001,
+                spawnCD: 45,
                 // Bin chances
-                binChance: .65,
+                binChance: .7,
                 trashChance: .98,
                 wordChance: 0,
                 lifeChance: 1,
@@ -207,6 +207,7 @@ class Levels {
         }
 
         if (this.levelBreak) {
+            this.game.Spawner.spawnMinCD = 0
             this.game.Spawner.binChance = 0
             this.game.Spawner.trashChance = 0
             this.game.Spawner.wordChance = 0
@@ -239,8 +240,10 @@ class Levels {
 
         if (this.game.dead) {
             this.currentLevel = 0
+            this.currentString = ""
             this.game.bgSpeed = 0
             this.game.cloudSpeed = 0
+            this.game.Spawner.spawnMinCD = 0
             this.game.Spawner.binChance = 0
             this.game.Spawner.trashChance = 0
             this.game.Spawner.wordChance = 0
@@ -297,6 +300,7 @@ class Levels {
         this.levelProgress = this.levels[this.currentLevel].proverbArray.slice();
         this.levelSprite = this.levels[this.currentLevel].sprite
         this.switchProverb()
+        this.game.Spawner.spawnMinCD = this.levels[this.currentLevel].spawnCD
         this.game.Spawner.binChance = this.levels[this.currentLevel].binChance
         this.game.Spawner.trashChance = this.levels[this.currentLevel].trashChance
         this.game.Spawner.wordChance = this.levels[this.currentLevel].wordChance

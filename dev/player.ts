@@ -93,8 +93,10 @@ class Player {
         // Check if can jump and enable jump
         if (this.grounded) {
             this.vSpeed = 0
-            if (this.mPressed) this.jumping = true
-
+            if (this.mPressed) {
+                this.jumping = true
+                this.sound.play();
+            }
         }
         // Stop jumping if mouse is released and player is past the min jump height
         if (this.jumping && this.mReleased && this.y < this.minJumpHeight) {
@@ -144,7 +146,6 @@ class Player {
             } else if (!this.ducking) {
                 this.mPressed = true
                 this.mReleased = false
-                this.sound.play();
             }
         }
 
