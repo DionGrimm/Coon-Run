@@ -70,7 +70,11 @@
         this.ctx.fillText(this.levelObject.currentString, this.canvasWidth/2, 100)
         // Start screen
         if (this.levelObject.currentLevel == 0) {
-            if (this.score > 0) this.ctx.fillText("" + this.score, this.canvasWidth/2, this.canvas.height/2-150)
+            if (this.score > 0) { 
+                this.ctx.fillText("" + this.score, this.canvasWidth/2, this.canvas.height/2-150)
+            } else {
+                this.ctx.fillText("COON RUN", this.canvasWidth/2, this.canvas.height/2-150)
+            }
             this.ctx.fillText("PRESS SPACE TO START", this.canvasWidth/2, this.canvas.height/2)
             this.ctx.fillText("Jump with Space", this.canvasWidth/2, this.canvas.height/2+150)
             this.ctx.fillText("Duck with Down arrow key", this.canvasWidth/2, this.canvas.height/2+200)

@@ -343,8 +343,12 @@ var Game = (function () {
             _this.ctx.font = "48px VT323";
             _this.ctx.fillText(_this.levelObject.currentString, _this.canvasWidth / 2, 100);
             if (_this.levelObject.currentLevel == 0) {
-                if (_this.score > 0)
+                if (_this.score > 0) {
                     _this.ctx.fillText("" + _this.score, _this.canvasWidth / 2, _this.canvas.height / 2 - 150);
+                }
+                else {
+                    _this.ctx.fillText("COON RUN", _this.canvasWidth / 2, _this.canvas.height / 2 - 150);
+                }
                 _this.ctx.fillText("PRESS SPACE TO START", _this.canvasWidth / 2, _this.canvas.height / 2);
                 _this.ctx.fillText("Jump with Space", _this.canvasWidth / 2, _this.canvas.height / 2 + 150);
                 _this.ctx.fillText("Duck with Down arrow key", _this.canvasWidth / 2, _this.canvas.height / 2 + 200);
@@ -374,73 +378,61 @@ var BgObject = (function (_super) {
         var _this = _super.call(this, game) || this;
         _this.index = [
             {
-                level: 0,
                 sprite: document.getElementById('bench'),
                 width: 75,
                 height: 58
             },
             {
-                level: 0,
                 sprite: document.getElementById('lantern'),
                 width: 31,
                 height: 150
             },
             {
-                level: 0,
                 sprite: document.getElementById('carrots'),
                 width: 123,
                 height: 80
             },
             {
-                level: 0,
                 sprite: document.getElementById('corn'),
                 width: 100,
                 height: 87
             },
             {
-                level: 0,
                 sprite: document.getElementById('flower'),
                 width: 124,
                 height: 100
             },
             {
-                level: 0,
                 sprite: document.getElementById('bookshelf'),
                 width: 47,
                 height: 150
             },
             {
-                level: 0,
                 sprite: document.getElementById('chouch'),
                 width: 130,
                 height: 80
             },
             {
-                level: 0,
                 sprite: document.getElementById('signzoo'),
                 width: 132,
                 height: 126
             },
             {
-                level: 0,
                 sprite: document.getElementById('zebra'),
                 width: 250,
                 height: 141
             },
             {
-                level: 0,
                 sprite: document.getElementById('zoosign'),
                 width: 192,
                 height: 108
             },
             {
-                level: 0,
                 sprite: document.getElementById('kawaiihearts'),
                 width: 90,
                 height: 90
             },
             {
-                level: 0,
                 sprite: document.getElementById('kawaiirainbow'),
                 width: 140,
                 height: 80
@@ -540,7 +532,8 @@ var Levels = (function () {
         this.levelCountdown = 300;
         this.levelBreak = false;
         this.nightOver = false;
-        this.nightCountdown = 1500;
+        this.nightMaxCD = 1500;
+        this.nightCountdown = this.nightMaxCD;
         this.game = game;
         this.levels = [
             {
@@ -716,7 +709,7 @@ var Levels = (function () {
             }
             if (this.nightCountdown < 1) {
                 this.nightOver = true;
-                this.nightCountdown = 600;
+                this.nightCountdown = this.nightMaxCD;
             }
         }
         if (this.game.dead) {
@@ -1049,7 +1042,7 @@ var Test = (function () {
         console.log("ik ben een test");
     }
     Test.prototype.update = function () {
-        console.log("doe iets");
+        console.log("doe iets on repeat");
     };
     return Test;
 }());
