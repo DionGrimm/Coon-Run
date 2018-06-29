@@ -1,6 +1,7 @@
 
 class Proverbs {
 
+    // List of all the proverbs, can add new ones and then add their index to the level array in the levels class
     public list:{string: string, correct: string[], incorrect: string[]}[] = [
         {
             string: "",

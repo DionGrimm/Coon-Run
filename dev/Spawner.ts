@@ -51,11 +51,11 @@ class Spawner {
         if (this.spawnCD <= 0) {
             this.canSpawn = true
         }
-
+        // Every x seconds an object may spawn and this could be a bin, trash, word or life
         if (!this.game.dead && this.game.levelObject.currentLevel != 0 && !this.game.levelObject.levelBreak) {
             if (this.canSpawn) {
                 this.canSpawn = false
-                this.spawnCD = this.getRandomInt(this.spawnMinCD, this.spawnMaxCD)
+                this.spawnCD = this.getRandomInt(this.spawnMinCD, this.spawnMaxCD) // SpawnCD is set to a random value between the level's min spawnCD and the games max spawnCD
                 
                 let chance = Math.random()
                 if (chance < this.binChance) {
@@ -123,7 +123,7 @@ class Spawner {
                 this.canSpawnBg = false
             }   
         }
-
+        // Clouds and background objects have there own spawn timer
         // Cloud
         let deleteCloud = []
         for(let i=0; i<this.clouds.length; i++) {
@@ -149,7 +149,7 @@ class Spawner {
         for (const i in deleteBG) {
             this.bgObject.splice(parseInt(i), 1)
         }
-
+        // This part updates all the objects and removes them when needed
         // Bins
         let deleteBin:number[] = [] // Temp holder for removed bins
         for (let i=0; i<this.bins.length; i++) {

@@ -148,7 +148,7 @@ class Player {
                 this.mReleased = false
             }
         }
-
+        // It checks if the game is running and if the player is not in the air and then allows the player to duck
         if (!this.game.dead && this.game.levelObject.currentLevel != 0) {
             if (e.keyCode == this.duckKey && !this.ducking && this.grounded) {
                 this.height /=2

@@ -15,7 +15,7 @@ class Trash extends basicObject {
 
     update():void {
         this.hspeed = this.game.objSpeed
-        // If there is a collision toggle the player state
+        // If there is a collision add 500 points!
         if (this.game.collision(this)) { 
             this.alive = false
             this.game.score += 500

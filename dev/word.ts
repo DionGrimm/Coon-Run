@@ -17,8 +17,8 @@ class Word {
         this.x = this.game.canvasWidth
         this.y = height
         this.hspeed = this.game.objSpeed
-        this.fake = fake
-        this.index = index
+        this.fake = fake    // Correct or incorrect word
+        this.index = index  // When a word is created it has an index which tells it which image to use
         if (this.fake) {
             this.Image = <HTMLImageElement>document.getElementById(this.game.levelObject.proverbs.list[this.game.levelObject.currentProverb].incorrect[index])
         } else {
@@ -32,12 +32,12 @@ class Word {
             this.alive = false
             if(!this.fake) { 
                 this.game.levelObject.proverbProgress.splice(this.index, 1)  
-                this.game.score += 2500  
+                this.game.score += 2500  // Get points for corrent word!
                 let sound:HTMLAudioElement = <HTMLAudioElement>document.getElementById('correctSnd')
                 sound.play()
             } else {
                 // Loses points
-                this.game.score -= 5000  
+                this.game.score -= 5000  // Lose points for incorrect word :/
                 if (this.game.score < 0) {
                     this.game.score = 0
                 }

@@ -18,6 +18,7 @@ class Cloud extends basicObject {
 
     update():void {
         this.hspeed = this.game.cloudSpeed
+        // Cloud if daytime ufo if nighttime
         if (!this.game.levelObject.levels[this.game.levelObject.currentLevel].night) {
             this.Image = <HTMLImageElement>document.getElementById('wolk')
         } else {

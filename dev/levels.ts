@@ -19,13 +19,14 @@ class Levels {
     public levelBreak:boolean = false
 
     private nightOver:boolean = false
-    private nightCountdown:number = 1500
+    private nightMaxCD:number = 1500
+    private nightCountdown:number = this.nightMaxCD
 
     public levelMusic:HTMLAudioElement
 
     constructor(game:Game) {
         this.game = game
-
+        // Each level has variables for speed, proverbs, night toggle, music, spawn chances and more.. The game always knows in which level it is and uses these variables which update when the game changes level
         this.levels = [
             {
                 level: 0,
@@ -58,8 +59,8 @@ class Levels {
                 wordChance: .96,
                 lifeChance: 1,
 
-                proverbArray: [1,2,3,4],
-                bgArray: [2,3,4],
+                proverbArray: [1,2,3,4], // This tells the game which proverbs to use
+                bgArray: [2,3,4], //This tells the game which background objects to use
                 night: false,
                 music: <HTMLAudioElement>document.getElementById("dag")
             },
@@ -184,28 +185,30 @@ class Levels {
     }
 
     update() {
-        let lvlReady = (this.levelProgress.length == 0)
-        let proverbReady = (this.proverbProgress.length == 0) 
-        
+        let lvlReady = (this.levelProgress.length == 0) // Checks if there are proverbs left in the level
+        let proverbReady = (this.proverbProgress.length == 0)  // Checks if there are words left in the current proverb
+        // 
         if ((proverbReady && lvlReady) || this.nightOver) {
-            
+            // If the level is over it removes all proverb stuff
             this.currentProverb = 0
             this.proverbProgress = this.proverbs.list[this.currentProverb].correct.slice()
             this.currentString = this.proverbs.list[this.currentProverb].string
+            // Switches level if it was a night level
             if (this.nightOver) {
                 this.nightOver = false
                 if (this.currentLevel != this.maxLevel) {
                     this.currentLevel++
                 }
                 this.switchLevel()
+            // Switches to level pause if it was a daytime level
             } else {
                 this.levelBreak = true
             }
-            
+        // Level is not over yet.. switch proverb
         } else if (proverbReady) {
             this.switchProverb()
         }
-
+        // Pause between levels
         if (this.levelBreak) {
             this.game.Spawner.spawnMinCD = 0
             this.game.Spawner.binChance = 0
@@ -226,7 +229,7 @@ class Levels {
                 this.levelBreak = false
             }
         }
-
+        // If current level is a nightlevel it will countdown and then sets nightOver to true which will switch the level
         if (this.levels[this.currentLevel].night) {
             if (this.nightCountdown > 0) {
                 this.nightCountdown--
@@ -234,7 +237,7 @@ class Levels {
 
             if (this.nightCountdown < 1) {
                 this.nightOver = true
-                this.nightCountdown = 600
+                this.nightCountdown = this.nightMaxCD
             }
         }
 
@@ -294,6 +297,7 @@ class Levels {
         return j
      }
 
+     // New level will update the music, spawning chances, proverbs etc.
      switchLevel():void {
         this.levelMusic.pause()
         this.levelMusic.currentTime = 0
