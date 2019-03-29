@@ -50,7 +50,7 @@ class Levels {
                 level: 1,
                 sprite: <HTMLImageElement>document.getElementById('level1'),
 
-                maxSpeed: 20,
+                maxSpeed: 15,
                 acceleration: 0.001,
                 spawnCD: 75,
                 // chances
@@ -68,7 +68,7 @@ class Levels {
                 level: 2,
                 sprite: <HTMLImageElement>document.getElementById('level0'),
 
-                maxSpeed: 25,
+                maxSpeed: 20,
                 acceleration: 0.002,
                 spawnCD: 70,
                 // Bin chances
@@ -86,7 +86,7 @@ class Levels {
                 level: 3,
                 sprite: <HTMLImageElement>document.getElementById('level2'),
 
-                maxSpeed: 30,
+                maxSpeed: 27,
                 acceleration: 0.001,
                 spawnCD: 65,
                 // Bin chances

@@ -302,7 +302,7 @@ var Game = (function () {
         this.score = 0;
         this.highscore = 0;
         this.dead = false;
-        this.startObjSpeed = 13;
+        this.startObjSpeed = 12;
         this.objSpeed = this.startObjSpeed;
         this.bgSpeed = 1;
         this.cloudSpeed = .1;
@@ -341,14 +341,17 @@ var Game = (function () {
             _this.ctx.drawImage(_this.life, 1050, 225, 45, 45);
             _this.ctx.textAlign = "center";
             _this.ctx.font = "48px VT323";
-            _this.ctx.fillText(_this.levelObject.currentString, _this.canvasWidth / 2, 100);
+            _this.ctx.fillText(_this.levelObject.currentString, _this.canvasWidth / 2, 250);
             if (_this.levelObject.currentLevel == 0) {
                 if (_this.score > 0) {
-                    _this.ctx.fillText("" + _this.score, _this.canvasWidth / 2, _this.canvas.height / 2 - 150);
+                    _this.ctx.font = "96px VT323";
+                    _this.ctx.fillText("" + _this.score, _this.canvasWidth / 2, _this.canvas.height / 2 - 50);
                 }
                 else {
+                    _this.ctx.font = "96px VT323";
                     _this.ctx.fillText("COON RUN", _this.canvasWidth / 2, _this.canvas.height / 2 - 150);
                 }
+                _this.ctx.font = "32px VT323";
                 _this.ctx.fillText("PRESS SPACE TO START", _this.canvasWidth / 2, _this.canvas.height / 2);
                 _this.ctx.fillText("Jump with Space", _this.canvasWidth / 2, _this.canvas.height / 2 + 150);
                 _this.ctx.fillText("Duck with Down arrow key", _this.canvasWidth / 2, _this.canvas.height / 2 + 200);
@@ -554,7 +557,7 @@ var Levels = (function () {
             {
                 level: 1,
                 sprite: document.getElementById('level1'),
-                maxSpeed: 20,
+                maxSpeed: 15,
                 acceleration: 0.001,
                 spawnCD: 75,
                 binChance: .5,
@@ -569,7 +572,7 @@ var Levels = (function () {
             {
                 level: 2,
                 sprite: document.getElementById('level0'),
-                maxSpeed: 25,
+                maxSpeed: 20,
                 acceleration: 0.002,
                 spawnCD: 70,
                 binChance: .5,
@@ -584,7 +587,7 @@ var Levels = (function () {
             {
                 level: 3,
                 sprite: document.getElementById('level2'),
-                maxSpeed: 30,
+                maxSpeed: 27,
                 acceleration: 0.001,
                 spawnCD: 65,
                 binChance: .55,

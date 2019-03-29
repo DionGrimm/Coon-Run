@@ -11,7 +11,7 @@
     public score:number = 0
     private highscore:number = 0
     public dead:boolean = false
-    public startObjSpeed:number = 13
+    public startObjSpeed:number = 12
     public objSpeed:number = this.startObjSpeed
     public bgSpeed:number = 1
     public cloudSpeed:number = .1
@@ -67,14 +67,17 @@
         // Proverb string
         this.ctx.textAlign="center"
         this.ctx.font = "48px VT323"
-        this.ctx.fillText(this.levelObject.currentString, this.canvasWidth/2, 100)
+        this.ctx.fillText(this.levelObject.currentString, this.canvasWidth/2, 250)
         // Start screen
         if (this.levelObject.currentLevel == 0) {
             if (this.score > 0) { 
-                this.ctx.fillText("" + this.score, this.canvasWidth/2, this.canvas.height/2-150)
+                this.ctx.font = "96px VT323"
+                this.ctx.fillText("" + this.score, this.canvasWidth/2, this.canvas.height/2-50)
             } else {
+                this.ctx.font = "96px VT323"
                 this.ctx.fillText("COON RUN", this.canvasWidth/2, this.canvas.height/2-150)
             }
+            this.ctx.font = "32px VT323"
             this.ctx.fillText("PRESS SPACE TO START", this.canvasWidth/2, this.canvas.height/2)
             this.ctx.fillText("Jump with Space", this.canvasWidth/2, this.canvas.height/2+150)
             this.ctx.fillText("Duck with Down arrow key", this.canvasWidth/2, this.canvas.height/2+200)
