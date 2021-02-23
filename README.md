@@ -1,4 +1,4 @@
-# Coon-Run
+# Racoon-Run
 
 # Controls
 Jump with left-mousekey
